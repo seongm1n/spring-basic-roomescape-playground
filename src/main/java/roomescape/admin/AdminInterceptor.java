@@ -1,16 +1,15 @@
 package roomescape.admin;
 
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
-import roomescape.member.MemberService;
+import roomescape.auth.JwtTokenProvider;
 
 public class AdminInterceptor implements HandlerInterceptor {
-    private final MemberService memberService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public AdminInterceptor(MemberService memberService) {
-        this.memberService = memberService;
+    public AdminInterceptor(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
@@ -41,6 +40,6 @@ public class AdminInterceptor implements HandlerInterceptor {
     }
 
     public String getUserRoleFromToken(String token) {
-        return memberService.getClaimValue(token, "role");
+        return jwtTokenProvider.getClaimValue(token, "role");
     }
 }
