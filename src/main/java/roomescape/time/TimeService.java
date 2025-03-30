@@ -30,8 +30,10 @@ public class TimeService {
                 .toList();
     }
 
-    public List<Time> findAll() {
-        return timeRepository.findAll();
+    public List<TimeResponse> findAll() {
+        return timeRepository.findAll().stream()
+                .map(time -> new TimeResponse(time.getId(), time.getValue()))
+                .toList();
     }
 
     public TimeResponse save(TimeRequest request) {

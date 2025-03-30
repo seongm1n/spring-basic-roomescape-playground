@@ -24,10 +24,7 @@ public class TimeController {
 
     @GetMapping("/times")
     public ResponseEntity<List<TimeResponse>> list() {
-        List<TimeResponse> times = timeService.findAll().stream()
-                .map(time -> new TimeResponse(time.getId(), time.getValue()))
-                .toList();
-        return ResponseEntity.ok(times);
+        return ResponseEntity.ok(timeService.findAll());
     }
 
     @PostMapping("/times")
