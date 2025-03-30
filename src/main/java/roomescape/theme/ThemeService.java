@@ -14,7 +14,7 @@ public class ThemeService {
     }
 
     public ThemeResponse createTheme(ThemeRequest themeRequest) {
-        Theme theme = new Theme(null, themeRequest.name(), themeRequest.description());
+        Theme theme = new Theme(themeRequest.name(), themeRequest.description());
         Theme savedTheme = themeRepository.save(theme);
         return new ThemeResponse(savedTheme.getId(), savedTheme.getName(), savedTheme.getDescription());
     }
