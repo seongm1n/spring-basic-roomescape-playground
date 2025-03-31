@@ -1,7 +1,9 @@
 package roomescape.reservation;
 
 import org.springframework.stereotype.Service;
+import roomescape.auth.JwtTokenProvider;
 import roomescape.exception.InvalidReservationException;
+import roomescape.member.LoginMember;
 import roomescape.theme.Theme;
 import roomescape.theme.ThemeRepository;
 import roomescape.time.Time;
@@ -21,7 +23,7 @@ public class ReservationService {
         this.timeRepository = timeRepository;
     }
 
-    public ReservationResponse save(ReservationRequest reservationRequest) {
+    public ReservationResponse save(ReservationRequest reservationRequest, LoginMember loginMember) {
         Theme theme = themeRepository.findById(reservationRequest.theme())
                 .orElseThrow(InvalidReservationException::invalidTheme);
         Time time = timeRepository.findById(reservationRequest.time())
@@ -29,6 +31,7 @@ public class ReservationService {
 
         Reservation reservation = new Reservation(
                 reservationRequest.name(),
+                loginMember.getId(),
                 reservationRequest.date(),
                 time,
                 theme

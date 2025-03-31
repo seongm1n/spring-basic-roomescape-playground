@@ -33,8 +33,9 @@ public class Reservation {
         this.theme = theme;
     }
 
-    public Reservation(String name, LocalDate date, Time time, Theme theme) {
+    public Reservation(String name, Long memberId, LocalDate date, Time time, Theme theme) {
         this.name = name;
+        this.memberId = memberId;
         this.date = date;
         this.time = time;
         this.theme = theme;

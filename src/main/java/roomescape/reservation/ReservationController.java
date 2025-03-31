@@ -26,11 +26,8 @@ public class ReservationController {
 
     @PostMapping("/reservations")
     public ResponseEntity create(@RequestBody ReservationRequest reservationRequest, LoginMember loginMember) {
-        if (reservationRequest.name() == null) {
-            reservationRequest = new ReservationRequest(loginMember.getName(), reservationRequest.date(), reservationRequest.theme(), reservationRequest.time());
-        }
         reservationRequest.validate();
-        ReservationResponse reservation = reservationService.save(reservationRequest);
+        ReservationResponse reservation = reservationService.save(reservationRequest, loginMember);
 
         return ResponseEntity.created(URI.create("/reservations/" + reservation.id())).body(reservation);
     }
