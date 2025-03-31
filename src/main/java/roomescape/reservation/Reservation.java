@@ -11,22 +11,22 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long memberId;
     private String name;
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "time_id")
     private Time time;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "theme_id")
     private Theme theme;
 
     protected Reservation() {
     }
 
-    public Reservation(Long id, String name, LocalDate date, Time time, Theme theme) {
+    public Reservation(Long id, Long memberId, String name, LocalDate date, Time time, Theme theme) {
         this.id = id;
+        this.memberId = memberId;
         this.name = name;
         this.date = date;
         this.time = time;
@@ -42,6 +42,10 @@ public class Reservation {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getMemberId() {
+        return memberId;
     }
 
     public String getName() {

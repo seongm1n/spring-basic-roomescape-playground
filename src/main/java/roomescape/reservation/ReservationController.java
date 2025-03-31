@@ -1,12 +1,8 @@
 package roomescape.reservation;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import roomescape.auth.JwtTokenProvider;
 import roomescape.member.LoginMember;
 
 import java.net.URI;
@@ -16,9 +12,11 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService, JwtTokenProvider jwtTokenProvider) {
         this.reservationService = reservationService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @GetMapping("/reservations")
@@ -41,5 +39,12 @@ public class ReservationController {
     public ResponseEntity delete(@PathVariable Long id) {
         reservationService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/reservations-mine")
+    public List<MyReservationResponse> getMyReservations(@CookieValue("token") String token) {
+        String value = jwtTokenProvider.getClaimValue(token, "id");
+        Long memberId = Long.valueOf(value);
+        return reservationService.findMyReservations(memberId);
     }
 }
