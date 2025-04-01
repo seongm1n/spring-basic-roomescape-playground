@@ -7,8 +7,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import roomescape.auth.JwtTokenProvider;
-import roomescape.reservation.MyReservationResponse;
+import roomescape.myreservation.MyReservationResponse;
 
 import java.util.HashMap;
 import java.util.List;

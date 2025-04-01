@@ -12,11 +12,9 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
-    private final JwtTokenProvider jwtTokenProvider;
 
-    public ReservationController(ReservationService reservationService, JwtTokenProvider jwtTokenProvider) {
+    public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
-        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @GetMapping("/reservations")
@@ -36,12 +34,5 @@ public class ReservationController {
     public ResponseEntity delete(@PathVariable Long id) {
         reservationService.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/reservations-mine")
-    public List<MyReservationResponse> getMyReservations(@CookieValue("token") String token) {
-        String value = jwtTokenProvider.getClaimValue(token, "id");
-        Long memberId = Long.valueOf(value);
-        return reservationService.findMyReservations(memberId);
     }
 }

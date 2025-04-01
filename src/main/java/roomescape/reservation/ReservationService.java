@@ -1,9 +1,9 @@
 package roomescape.reservation;
 
 import org.springframework.stereotype.Service;
-import roomescape.auth.JwtTokenProvider;
 import roomescape.exception.InvalidReservationException;
 import roomescape.member.LoginMember;
+import roomescape.myreservation.MyReservationResponse;
 import roomescape.theme.Theme;
 import roomescape.theme.ThemeRepository;
 import roomescape.time.Time;
@@ -48,12 +48,6 @@ public class ReservationService {
     public List<ReservationResponse> findAll() {
         return reservationRepository.findAll().stream()
                 .map(it -> new ReservationResponse(it.getId(), it.getName(), it.getTheme().getName(), it.getDate(), it.getTime().getValue()))
-                .toList();
-    }
-
-    public List<MyReservationResponse> findMyReservations(Long memberId) {
-        return reservationRepository.findByMemberId(memberId).stream()
-                .map(MyReservationResponse::from)
                 .toList();
     }
 }

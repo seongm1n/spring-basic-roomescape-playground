@@ -1,10 +1,12 @@
-package roomescape.reservation;
+package roomescape.myreservation;
+
+import roomescape.reservation.Reservation;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record MyReservationResponse(
-        Long reservationId,
+        Long id,
         String theme,
         LocalDate date,
         LocalTime time,
