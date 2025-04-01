@@ -1,6 +1,7 @@
 package roomescape.myreservation;
 
 import roomescape.reservation.Reservation;
+import roomescape.waiting.Waiting;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,6 +20,16 @@ public record MyReservationResponse(
                 reservation.getDate(),
                 reservation.getTime().getValue(),
                 "예약"
+        );
+    }
+
+    public static MyReservationResponse from(Waiting waiting) {
+        return new MyReservationResponse(
+                waiting.getId(),
+                waiting.getTheme().getName(),
+                waiting.getDate(),
+                waiting.getTime().getValue(),
+                "예약대기"
         );
     }
 }
