@@ -37,4 +37,8 @@ public class WaitingService {
         Waiting savedWaiting = waitingRepository.save(waiting);
         return new WaitingResponse(savedWaiting.getId(), savedWaiting.getTheme().getId(), savedWaiting.getTime().getId(), savedWaiting.getDate());
     }
+
+    public void deleteById(Long id) {
+        waitingRepository.deleteById(id);
+    }
 }

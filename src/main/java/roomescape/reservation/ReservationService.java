@@ -3,7 +3,6 @@ package roomescape.reservation;
 import org.springframework.stereotype.Service;
 import roomescape.exception.InvalidReservationException;
 import roomescape.member.LoginMember;
-import roomescape.myreservation.MyReservationResponse;
 import roomescape.theme.Theme;
 import roomescape.theme.ThemeRepository;
 import roomescape.time.Time;
